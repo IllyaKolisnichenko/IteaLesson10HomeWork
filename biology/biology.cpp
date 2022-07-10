@@ -86,14 +86,14 @@
 
     int rhodopsin::reaction() {
         std::cout << "activation of transducin g protein." << std::endl;
-        return 0;                                             //активация трансдуцина именно g белка
-    }                                                          //провоцирует уменьшение выбораса нейромедиаторов
-                                                                //в (глутамата) в синапс. Связанные с зрительными 
+        return 0;                                             
+    }                                                          
+                                                                 
     transducin::transducin(int G_pn, int lt) : Eyes(lt) {
         G_protein=G_pn;
     } 
     
-    int transducin::light(){                                      //определённый как свет
+    int transducin::light(){                                      
         Eyes::light();
         std::cout << "alpha-subelement activation of cGMFfosfodiesterase ferment." << std::endl;
         std::cout << "start of reaction put  namber 1." << std::endl;

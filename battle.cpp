@@ -7,6 +7,8 @@ public:
         Shield,
         Sword,
         Armor,
+        Magic,
+        HandCombat,
         Count
     };
 
@@ -34,8 +36,8 @@ class Hero : public Person{
 public:
     int attack()
     {
-        int addAttack{ itemPair.first == Item::Sword ? itemPair.second : 0 };
-        return ( rand() % maxAttack ) + addAttack;
+        int addAttack{ itemPair.first == Item::Sword || itemPair.first == Item::HandCombat ? itemPair.second : 0 };
+        return ( rand() % maxAttack );
     }
 
     void takeDamage( int damage )
@@ -69,32 +71,46 @@ public:
     }
 };
 
+class MagicHero : public Hero {
+public:
+    void magic()
+    {
+        if (itemPair.first == Item::Magic)
+        {
+            life += itemPair.second;
+            return;
+        }
+    }
+};
+
+
 int main()
 {
     srand( time(nullptr ) );
 
-    Hero hero;
+    MagicHero magicHero;
     Monster monster;
-
-    hero.getItem();
-    monster.getItem();
-
+   
     while (true)
     {
-        monster.takeDamage( hero.attack() );
+        magicHero.getItem();
+        monster.getItem();
+        monster.takeDamage( magicHero.attack() );
         if( monster.getLife() <=0 )
         {
-            std::cout << "Hero is win!!!";
+            std::cout << "MagicHero is win!!!" << std::endl;
+            system("pause");
             return 0;
         }
-
-        hero.takeDamage( monster.attack() );
-        if( hero.getLife() <=0 )
+        magicHero.magic();
+        magicHero.takeDamage( monster.attack() );
+        if( magicHero.getLife() <=0 )
         {
-            std::cout << "Monster is win!!!";
+            std::cout << "Monster is win!!!" << std::endl;
+            system("pause");
             return 0;
         }
     }
-
+    
     return 0;
 }

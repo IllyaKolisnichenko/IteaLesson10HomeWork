@@ -4,6 +4,7 @@
 class Warrior {
 public:
 
+<<<<<<< HEAD
     int getLife() {
         return life_;
     }
@@ -13,6 +14,17 @@ public:
     }
 
     void getDamage(int damage) {
+=======
+    virtual int getLife() {
+        return life_;
+    }
+
+    virtual int attack() {
+        return rand() % maxAttack_ + minAttack_ + weaponAttackValue;
+    }
+
+    virtual void getDamage(int damage) {
+>>>>>>> f9d25c5598e0232312150791b43f3afdbaeffc2e
         if (damage <= shieldDefenceValue)
             damage = 0;
         else
@@ -31,6 +43,7 @@ public:
 
             switch (choise) {
             case NoWeapon:
+<<<<<<< HEAD
                 weaponAttackValue_ = fistAttack_;
                 std::cout << "No weapon" << std::endl;
                 return;
@@ -40,6 +53,17 @@ public:
                 return;
             case Sword:
                 weaponAttackValue_ = swordAttack_;
+=======
+                weaponAttackValue = fistAttack_;
+                std::cout << "No weapon" << std::endl;
+                return;
+            case Axe:
+                weaponAttackValue = axeAttack_;
+                std::cout << "Weapon is Axe with " << axeAttack_ << " attack bonus" << std::endl;
+                return;
+            case Sword:
+                weaponAttackValue = swordAttack_;
+>>>>>>> f9d25c5598e0232312150791b43f3afdbaeffc2e
                 std::cout << "Weapon is Sword with " << swordAttack_ << " attack bonus" << std::endl;
                 return;
             default:
@@ -90,7 +114,11 @@ protected:
         MetalShield,
     };
 
+<<<<<<< HEAD
     int weaponAttackValue_{};
+=======
+    int weaponAttackValue{};
+>>>>>>> f9d25c5598e0232312150791b43f3afdbaeffc2e
     int shieldDefenceValue{};
 
     static constexpr int fistAttack_{ };
@@ -111,6 +139,7 @@ private:
 
 class Sorcerer {
 public:
+<<<<<<< HEAD
     int getLife() {
         return life_;
     }
@@ -120,6 +149,17 @@ public:
     }
 
     void getDamage(int damage) {
+=======
+    virtual int getLife() {
+        return life_;
+    }
+
+    virtual int attack() {
+        return rand() % maxAttack_ + minAttack_ + weaponAttackValue;
+    }
+
+    virtual void getDamage(int damage) {
+>>>>>>> f9d25c5598e0232312150791b43f3afdbaeffc2e
         life_ -= damage;
     }
 
@@ -133,6 +173,7 @@ public:
 
             switch (choise) {
             case NoWeapon:
+<<<<<<< HEAD
                 weaponAttackValue_ = noWeaponAttack_;
                 std::cout << "No weapon" << std::endl;
                 return;
@@ -142,6 +183,17 @@ public:
                 return;
             case MagicStick:
                 weaponAttackValue_ = magicStickAttack_;
+=======
+                weaponAttackValue = noWeaponAttack_;
+                std::cout << "No weapon" << std::endl;
+                return;
+            case BattleSpell:
+                weaponAttackValue = spellAttack_;
+                std::cout << "Weapon is Spell with " << spellAttack_ << " attack bonus" << std::endl;
+                return;
+            case MagicStick:
+                weaponAttackValue = magicStickAttack_;
+>>>>>>> f9d25c5598e0232312150791b43f3afdbaeffc2e
                 std::cout << "Weapon is Magic Stick with " << magicStickAttack_ << " attack bonus" << std::endl;
                 return;
             default:
@@ -158,7 +210,11 @@ protected:
         MagicStick,
     };
 
+<<<<<<< HEAD
     int weaponAttackValue_{};
+=======
+    int weaponAttackValue{};
+>>>>>>> f9d25c5598e0232312150791b43f3afdbaeffc2e
 
     static constexpr int noWeaponAttack_{ };
     static constexpr int spellAttack_{ 10 };
@@ -173,6 +229,7 @@ private:
 
 class CombatSorcerer : public Warrior, public Sorcerer {
 public:
+<<<<<<< HEAD
     int getLife() {
         return life_;
     }
@@ -182,6 +239,17 @@ public:
     }
 
     void getDamage(int damage) {
+=======
+    virtual int getLife() {
+        return life_;
+    }
+
+    virtual int attack() {
+        return rand() % maxAttack_ + minAttack_ + shieldDefenceValue;
+    }
+
+    virtual void getDamage(int damage) {
+>>>>>>> f9d25c5598e0232312150791b43f3afdbaeffc2e
         if (damage <= shieldDefenceValue)
             damage = 0;
         else

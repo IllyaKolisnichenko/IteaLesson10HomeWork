@@ -1,8 +1,10 @@
 #include <iostream>
 
-
-class Warrior {
+class Person {
 public:
+    void setLife(int life) {
+        life_ = life;
+    }
 
     int getLife() {
         return life_;
@@ -13,14 +15,15 @@ public:
     }
 
     void getDamage(int damage) {
-        if (damage <= shieldDefenceValue)
+        if (damage <= shieldDefenceValue_)
             damage = 0;
         else
-            damage -= shieldDefenceValue;
+            damage -= shieldDefenceValue_;
 
         life_ -= damage;
     }
 
+protected:
     void getWarriorWeapon() {
         int choise{};
 
@@ -30,7 +33,7 @@ public:
             std::cin >> choise;
 
             switch (choise) {
-            case NoWeapon:
+            case Fist:
                 weaponAttackValue_ = fistAttack_;
                 std::cout << "No weapon" << std::endl;
                 return;
@@ -59,15 +62,15 @@ public:
 
             switch (choise) {
             case NoShield:
-                shieldDefenceValue = noShieldProtection_;
+                shieldDefenceValue_ = noShieldProtection_;
                 std::cout << "No shield" << std::endl;
                 return;
             case WoodenShield:
-                shieldDefenceValue = woodenShieldProtection_;
+                shieldDefenceValue_ = woodenShieldProtection_;
                 std::cout << "Wooden Shield with " << woodenShieldProtection_ << " protect bonus" << std::endl;
                 return;
             case MetalShield:
-                shieldDefenceValue = metalShieldProtection_;
+                shieldDefenceValue_ = metalShieldProtection_;
                 std::cout << "Metal Shield with " << metalShieldProtection_ << " protect bonus" << std::endl;
                 return;
             default:
@@ -76,51 +79,6 @@ public:
             }
         }
 
-    }
-protected:
-    enum Weapon {
-        NoWeapon,
-        Axe,
-        Sword,
-    };
-
-    enum Shield {
-        NoShield,
-        WoodenShield,
-        MetalShield,
-    };
-
-    int weaponAttackValue_{};
-    int shieldDefenceValue{};
-
-    static constexpr int fistAttack_{ };
-    static constexpr int axeAttack_{ 7 };
-    static constexpr int swordAttack_{ 10 };
-
-    static constexpr int noShieldProtection_{ };
-    static constexpr int woodenShieldProtection_{ 3 };
-    static constexpr int metalShieldProtection_{ 7 };
-
-private:
-    int life_{ 150 };
-
-    static constexpr int minAttack_{ 1 };
-    static constexpr int maxAttack_{ 10 };
-
-};
-
-class Sorcerer {
-public:
-    int getLife() {
-        return life_;
-    }
-
-    int attack() {
-        return rand() % maxAttack_ + minAttack_ + weaponAttackValue_;
-    }
-
-    void getDamage(int damage) {
-        life_ -= damage;
     }
 
     void getMagicWeapon() {
@@ -152,42 +110,77 @@ public:
     }
 
 protected:
-    enum Weapon {
+    //for all
+    int weaponAttackValue_{};
+    int shieldDefenceValue_{};
+    static constexpr int minAttack_{ 1 };
+    static constexpr int maxAttack_{ 10 };
+
+    //for Warrior and Combat Sorcer
+    enum WarriorWeapon {
+        Fist,
+        Axe,
+        Sword,
+    };
+
+    enum Shield {
+        NoShield,
+        WoodenShield,
+        MetalShield,
+    };
+
+    static constexpr int fistAttack_{ };
+    static constexpr int axeAttack_{ 7 };
+    static constexpr int swordAttack_{ 10 };
+
+    static constexpr int noShieldProtection_{ };
+    static constexpr int woodenShieldProtection_{ 3 };
+    static constexpr int metalShieldProtection_{ 7 };
+
+    //for Sorcerer
+    enum SorcererWeapon {
         NoWeapon,
         BattleSpell,
         MagicStick,
     };
-
-    int weaponAttackValue_{};
 
     static constexpr int noWeaponAttack_{ };
     static constexpr int spellAttack_{ 10 };
     static constexpr int magicStickAttack_{ 13 };
 
 private:
-    int life_{ 100 };
-
-    static constexpr int minAttack_{ 1 };
-    static constexpr int maxAttack_{ 10 };
+    int life_{};
 };
 
-class CombatSorcerer : public Warrior, public Sorcerer {
+class Warrior : public Person {
 public:
-    int getLife() {
-        return life_;
+    Warrior() {
+        setLife(warriorsLife_);
+        getWarriorWeapon();
+        getShield();
     }
 
-    int attack() {
-        return rand() % maxAttack_ + minAttack_ + shieldDefenceValue;
+private:
+    int warriorsLife_{ 150 };
+};
+
+class Sorcerer : public Person {
+public:
+    Sorcerer() {
+        setLife(sorcerersLife_);
+        getMagicWeapon();
     }
 
-    void getDamage(int damage) {
-        if (damage <= shieldDefenceValue)
-            damage = 0;
-        else
-            damage -= shieldDefenceValue;
+private:
+    int sorcerersLife_{ 100 };
+};
 
-        life_ -= damage;
+class CombatSorcerer : public Person {
+public:
+    CombatSorcerer() {
+        setLife(combatSorcerersLife_);
+        getCombatSorcererWeapon();
+        getShield();
     }
 
     void getCombatSorcererWeapon() {
@@ -213,28 +206,21 @@ public:
     }
 
 private:
-    int life_{ 75 };
-
-    static constexpr int minAttack_{ 1 };
-    static constexpr int maxAttack_{ 10 };
+    int combatSorcerersLife_{ 90 };
 };
-
 
 
 int main()
 {
     srand( time( nullptr ) );
 
+    std::cout << "Choose the equipment for your Hero" << std::endl;
     CombatSorcerer hero;
-    std::cout << "Choose the equipment for your hero" << std::endl;
-    hero.getCombatSorcererWeapon();
-    hero.getShield();
-
-    Sorcerer antagonist;
-    std::cout << "Choose the equipment for antagonist" << std::endl;
-    antagonist.getMagicWeapon();
     std::cout << std::endl;
 
+    std::cout << "Choose the equipment for antagonist" << std::endl;
+    Sorcerer antagonist;
+    std::cout << std::endl;
 
     while (true)
     {

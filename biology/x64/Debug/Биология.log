@@ -1,0 +1,5 @@
+﻿  biology.cpp
+  biology2.cpp
+  Создание кода...
+C:\Users\User\source\repos\Биология\Биология\biology.cpp(26): warning C4715: Eyes::light: значение возвращается не при всех путях выполнения
+  Биология.vcxproj -> C:\Users\User\source\repos\Биология\x64\Debug\Биология.exe
